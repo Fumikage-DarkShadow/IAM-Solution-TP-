@@ -5,9 +5,25 @@
 // Modify them if you change the realm/client/user names.
 // =====================================================================
 
+// In a GitHub Codespace, the SPA is served on
+// https://<name>-5173.app.github.dev (HTTPS) and Keycloak on
+// https://<name>-8080.app.github.dev. We detect this case automatically
+// so the prof can hit "Open in Codespaces" without touching any config.
+function resolveServerUrl() {
+  if (typeof window === 'undefined') return 'http://localhost:8080';
+  const host = window.location.hostname;
+  if (host.endsWith('.app.github.dev')) {
+    const kcHost = host.replace(/-5173(\.|-)/, '-8080$1');
+    return `https://${kcHost}`;
+  }
+  return 'http://localhost:8080';
+}
+
 export const KEYCLOAK_CONFIG = {
-  // Base URL of the Keycloak server (Docker container exposed on 8080)
-  serverUrl: 'http://localhost:8080',
+  // Base URL of the Keycloak server
+  // - Local dev      : http://localhost:8080
+  // - GitHub Codespace: auto-detected from window.location
+  serverUrl: resolveServerUrl(),
 
   // Realm to authenticate against
   realm: 'efrei-iam',

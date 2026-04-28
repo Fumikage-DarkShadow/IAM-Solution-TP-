@@ -4,11 +4,12 @@
 > **Ilyes SADADOU** · **IAM M1-CSM 2026** · Pr. Issiaka KONÉ
 > Date : **28/04/2026**
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/Fumikage-DarkShadow/IAM-Solution-TP-?quickstart=1)
+
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
 [![Keycloak](https://img.shields.io/badge/Keycloak-26.0.1-008AAA?logo=keycloak&logoColor=white)](https://www.keycloak.org)
 [![OAuth 2.0](https://img.shields.io/badge/OAuth%202.0-ROPC-orange)](https://datatracker.ietf.org/doc/html/rfc6749#section-4.3)
-[![License](https://img.shields.io/badge/license-Educational-blue)](#)
 
 ---
 
@@ -39,7 +40,25 @@ Single Page App **React + Vite** qui démontre un flux OAuth 2.0 / OpenID Connec
 
 ---
 
-## 🚀 Démarrage rapide (3 commandes)
+## 🚀 Démarrage rapide
+
+### ⚡ Option 1 — GitHub Codespaces (zéro install, ~ 1 min)
+
+Clique sur le bouton **« Open in GitHub Codespaces »** ci-dessus.
+GitHub :
+1. provisionne une VM avec Node + Docker,
+2. fait `npm install` puis `docker compose up -d` (Keycloak),
+3. forwarde les ports 5173 (SPA) et 8080 (Keycloak) en HTTPS public.
+
+Quand le terminal te dit que Keycloak est prêt, tape :
+
+```bash
+npm run dev
+```
+
+VS Code ouvre automatiquement la SPA dans un onglet ; login `demo` / `demo`.
+
+### 💻 Option 2 — En local (3 commandes)
 
 > **Pré-requis :** Docker Desktop + Node.js 20+
 
