@@ -1,0 +1,85 @@
+{
+  "realm": "efrei-iam",
+  "displayName": "EFREI IAM Demo Realm",
+  "enabled": true,
+  "sslRequired": "external",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "clients": [
+    {
+      "clientId": "react-spa",
+      "name": "React SPA Demo Client",
+      "description": "Public client for the React single-page app — Direct Access Grants (password) flow",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "redirectUris": [
+        "http://localhost:5173/*",
+        "http://localhost:4173/*"
+      ],
+      "webOrigins": [
+        "http://localhost:5173",
+        "http://localhost:4173",
+        "+"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "+",
+        "pkce.code.challenge.method": "S256"
+      },
+      "defaultClientScopes": ["web-origins", "acr", "profile", "roles", "email"],
+      "optionalClientScopes": ["address", "phone", "offline_access", "microprofile-jwt"]
+    }
+  ],
+  "users": [
+    {
+      "username": "demo",
+      "email": "demo@efrei.local",
+      "firstName": "Demo",
+      "lastName": "User",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "demo",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["default-roles-efrei-iam", "user"],
+      "groups": []
+    },
+    {
+      "username": "ilyes",
+      "email": "ilyes.sadadou@efrei.net",
+      "firstName": "Ilyes",
+      "lastName": "Sadadou",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "ilyes2026",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["default-roles-efrei-iam", "user", "admin-iam"],
+      "groups": []
+    }
+  ],
+  "roles": {
+    "realm": [
+      { "name": "user", "description": "Standard authenticated user" },
+      { "name": "admin-iam", "description": "Administrator of the IAM platform" }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+# =====================================================================
+# Keycloak 26 — pré-configuré pour l'évaluation EFREI IAM M1-CSM
+# =====================================================================
+# Démarrage en une commande :
+#     docker compose up
+#
+# Le realm 'efrei-iam' (client + 2 utilisateurs) est importé automatiquement
+# au premier lancement grâce au volume monté sur /opt/keycloak/data/import.
+#
+# Une fois prêt (~45 s) :
+#   - Page d'accueil  : http://localhost:8080
+#   - Console admin   : http://localhost:8080/admin   (admin / admin)
+#   - OIDC discovery  : http://localhost:8080/realms/efrei-iam/.well-known/openid-configuration
+#
+# Comptes de test du realm efrei-iam :
+#   - demo  / demo         (rôle 'user')
+#   - ilyes / ilyes2026    (rôles 'user' + 'admin-iam')
+# =====================================================================
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.1
+    container_name: efrei-keycloak
+    command: start-dev --import-realm
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HTTP_PORT: 8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak-realm-export.json:/opt/keycloak/data/import/efrei-iam-realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080 && echo -e 'GET /realms/efrei-iam/.well-known/openid-configuration HTTP/1.1\\r\\nHost: localhost\\r\\n\\r\\n' >&3 && head -c 12 <&3 | grep -q '200'"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 30s
